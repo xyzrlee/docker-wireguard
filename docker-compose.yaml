@@ -1,0 +1,14 @@
+version: '3'
+services:
+    wireguard:
+        build: .
+        image: xyzrlee/wireguard
+        #restart: unless-stopped
+        network_mode: host
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+        volumes:
+            - .:/etc/wireguard:ro
+        environment:
+            - INTERFACE=wg0
