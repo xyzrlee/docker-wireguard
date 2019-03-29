@@ -2,7 +2,15 @@
 
 wg-quick up ${INTERFACE}
 
-while sleep 20; do
-    date -R
-    wg show
-done
+wg show
+
+finish () {
+    echo "$(date): Shutting down Wireguard"
+    wg-quick down ${INTERFACE}
+    exit 0
+}
+
+trap finish SIGTERM SIGINT SIGQUIT
+
+while true; do sleep 86400; done &
+wait $!
