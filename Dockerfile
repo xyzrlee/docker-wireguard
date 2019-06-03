@@ -6,10 +6,8 @@ FROM alpine
 LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 
 RUN set -ex \
- && echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories \
- && apk update \
- && apk upgrade \
- && apk add wireguard-tools@testing
+ && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+ && apk --update --no-cache add wireguard-tools
 
 USER root
 
