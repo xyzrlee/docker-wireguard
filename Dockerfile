@@ -18,8 +18,8 @@ RUN set -ex \
  && TAG=`git tag -l | sort -r | head -n 1` \
  && git checkout tags/${TAG} -b ${TAG} \
  && cd src \
- && make \
- && make install \
+ && make tools \
+ && make -C tools install \
  && rm -rf ${TMP} \
 # && apk del .build-deps \
  && wg --help \
