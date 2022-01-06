@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Deploy to ghcr.io
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+    - name: Build
+      run: | 
+        docker build \
+        --tag ghcr.io/$GITHUB_ACTOR/wireguard:v$(date +%Y%m%d) \
+        --tag ghcr.io/$GITHUB_ACTOR/wireguard:latest \
+        .
+    - name: Docker login
+      run: >-
+        echo "${{ secrets.GITHUB_TOKEN }}"
+        | docker login -u "${{ github.actor }}" --password-stdin ghcr.io
+      
+    - name: Push image to GitHub
+      run: |
+        docker push ghcr.io/$GITHUB_ACTOR/wireguard:v$(date +%Y%m%d)
+        docker push ghcr.io/$GITHUB_ACTOR/wireguard:latest
