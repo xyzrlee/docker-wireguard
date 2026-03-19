@@ -6,7 +6,7 @@ FROM alpine
 LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 
 RUN set -ex \
- && apk add --no-cache -U wireguard-tools \
+ && apk add --no-cache -U wireguard-tools iptables \
  && which wg \
  && wg --help \
  && which wg-quick \
