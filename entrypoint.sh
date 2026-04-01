@@ -2,7 +2,7 @@
 
 wg-quick up ${INTERFACE}
 
-wg show
+wg show ${INTERFACE}
 
 finish () {
     echo "$(date): Shutting down Wireguard"
